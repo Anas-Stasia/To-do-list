@@ -1,8 +1,9 @@
 import React, { useState} from 'react';
-import { StyleSheet, Text, View, FlatList , Alert} from 'react-native';
+import { StyleSheet, Text, View, FlatList , Alert, TouchableWithoutFeedback, Keybord} from 'react-native';
 import Header from './Components/header';
 import TodoItem from './Components/todoItem';
 import AddTodo from './Components/addTodo';
+import Sandbox from './Components/sideWork';
 
 export default function App() {
   const[todos, setTodos] = useState([
@@ -43,6 +44,11 @@ export default function App() {
   }
 
   return (
+   // <Sandbox/>
+    <TouchableWithoutFeedback onPress={() => {
+      Keybord.dismiss();
+      console.log('dismissed keyboard')
+    }}>
     <View style={styles.container}>
       {/* Header */}
       <Header/>
@@ -53,9 +59,7 @@ export default function App() {
          <FlatList 
          data={todos}
          renderItem={({item}) => (
-          <TodoItem items={item} pressHandler={pressHandler}/>
-
-          
+          <TodoItem items={item} pressHandler={pressHandler}/> 
          )
         }
          />
@@ -64,6 +68,7 @@ export default function App() {
       </View>
       
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -71,12 +76,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+
     
   },
   content: {
     padding: 40,
+    flex: 1
   },
   list:{
-    marginTop:20
+    marginTop:20,
+    flex: 1
   }
 });
