@@ -1,7 +1,8 @@
 import React, { useState} from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList , Alert} from 'react-native';
 import Header from './Components/header';
 import TodoItem from './Components/todoItem';
+import AddTodo from './Components/addTodo';
 
 export default function App() {
   const[todos, setTodos] = useState([
@@ -22,11 +23,31 @@ export default function App() {
     }
     )
   }
+
+  const submitHandler = (text) => {
+
+    if(text.length > 3) {
+      setTodos((prevTodos) => {
+        return [
+          {text: text, Key: Math.random().toString()},
+          ...prevTodos
+        ];
+  
+      });
+    } else {
+      Alert.alert('OOPS!', 'toDOS must be 3 chars long' [
+        {text: 'Understood', onpress: () => console.log('alert closed')}
+      ])
+    }
+  
+  }
+
   return (
     <View style={styles.container}>
       {/* Header */}
       <Header/>
       <View style={styles.content}>
+        <AddTodo submitHandler={submitHandler}/>
          {/* to do form */}
          <View style={styles.list}>
          <FlatList 
